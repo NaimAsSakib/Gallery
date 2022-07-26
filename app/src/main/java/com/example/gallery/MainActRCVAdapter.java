@@ -10,18 +10,28 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.gallery.model.ResponsePojo;
+
 import java.util.ArrayList;
 
 public class MainActRCVAdapter extends RecyclerView.Adapter<MainActRCVAdapter.Viewholder> {
 
     Context context;
-    private ArrayList<Integer> arrayList;
+   // private ArrayList<Integer> arrayList;
 
+    ArrayList<ResponsePojo> responsePojo;
     ItemOnClickListener itemOnClickListener;
 
-    public MainActRCVAdapter(Context context, ArrayList<Integer> arrayList, ItemOnClickListener itemOnClickListener) {
+  /*  public MainActRCVAdapter(Context context, ArrayList<Integer> arrayList, ItemOnClickListener itemOnClickListener) {
         this.context = context;
         this.arrayList = arrayList;
+        this.itemOnClickListener = itemOnClickListener;
+    }*/
+
+    public MainActRCVAdapter(Context context, ArrayList<ResponsePojo> responsePojo, ItemOnClickListener itemOnClickListener) {
+        this.context = context;
+        this.responsePojo = responsePojo;
         this.itemOnClickListener = itemOnClickListener;
     }
 
@@ -48,13 +58,31 @@ public class MainActRCVAdapter extends RecyclerView.Adapter<MainActRCVAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull MainActRCVAdapter.Viewholder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.imageView.setImageResource(arrayList.get(position));
+        //holder.imageView.setImageResource(arrayList.get(position));
+
+       /* holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String clickedImage=arrayList.get(position).toString();
+                itemOnClickListener.onImageClicked(clickedImage);
+            }
+        });*/
+
+        ResponsePojo item=responsePojo.get(position);
+
+        //Loading image from server through Glide
+        Glide.with(context)
+                .load(item.getUrls().getRegular())
+                //error shows its image if server image is unreachable or having error from server image
+                .error(R.drawable.myphoto)
+                .into(holder.imageView);
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String clickedImage=arrayList.get(position).toString();
+                String clickedImage=item.getUrls().getRegular();
                 itemOnClickListener.onImageClicked(clickedImage);
             }
         });
@@ -62,6 +90,7 @@ public class MainActRCVAdapter extends RecyclerView.Adapter<MainActRCVAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        // return arrayList.size();
+        return responsePojo.size();
     }
 }

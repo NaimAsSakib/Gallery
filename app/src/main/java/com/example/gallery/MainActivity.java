@@ -6,11 +6,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.example.gallery.model.ApiInterface;
+import com.example.gallery.model.ResponsePojo;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements ItemOnClickListener{
     RecyclerView recyclerView;
@@ -18,10 +27,15 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
     RecyclerView.LayoutManager layoutManager;
     GridLayoutManager gridLayoutManager;
 
-    ArrayList<Integer> arrayList;
+    //ArrayList<Integer> arrayList;
 
     ItemOnClickListener itemOnClickListener;
     String imagePosition;
+
+    //API code
+    String baseURL = "https://api.unsplash.com";
+    private ApiInterface apiInterface;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +44,7 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
 
         recyclerView=findViewById(R.id.recyclerView);
 
-        /*Bitmap yourBitmap;
-        Bitmap resized = Bitmap.createScaledBitmap(yourBitmap, 130, 130, true);*/
-
+/*
         arrayList=new ArrayList<>();
         arrayList.add(R.drawable.myphoto);
         arrayList.add(R.drawable.myphoto);
@@ -56,15 +68,56 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
         arrayList.add(R.drawable.sakib);
         arrayList.add(R.drawable.sakib);
 
-
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
         programAdapter = new MainActRCVAdapter(MainActivity.this,arrayList,MainActivity.this);
         recyclerView.setAdapter(programAdapter);
+*/
 
 
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        networkLibraryInitializer();
+        getData();
+
+    }
+
+    //Api code
+    private void networkLibraryInitializer() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiInterface = retrofit.create(ApiInterface.class);
+    }
+
+
+    private void getData() {
+
+        Call<ArrayList<ResponsePojo>> responseDetails=apiInterface.getResponseDetails("9qQ2b3hOLsdJ8MFtaHl-iGXB-6GzyC1E872EAXHDwQ4",1,60);
+
+        responseDetails.enqueue(new Callback<ArrayList<ResponsePojo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ResponsePojo>> call, Response<ArrayList<ResponsePojo>> response) {
+
+                ArrayList<ResponsePojo> responsePojo=response.body();
+
+                    programAdapter = new MainActRCVAdapter(MainActivity.this,responsePojo,MainActivity.this);
+                    recyclerView.setAdapter(programAdapter);
+                    Toast.makeText(MainActivity.this, "response successful for Main Act", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ResponsePojo>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
