@@ -48,25 +48,9 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
         arrayList=new ArrayList<>();
         arrayList.add(R.drawable.myphoto);
         arrayList.add(R.drawable.myphoto);
-        arrayList.add(R.drawable.myphoto);
-        arrayList.add(R.drawable.myphoto);
-        arrayList.add(R.drawable.myphoto);
-        arrayList.add(R.drawable.myphoto);
         arrayList.add(R.drawable.sakib);
         arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
+
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
