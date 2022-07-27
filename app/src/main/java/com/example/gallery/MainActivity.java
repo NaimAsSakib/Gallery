@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
     RecyclerView.LayoutManager layoutManager;
     GridLayoutManager gridLayoutManager;
 
+    LoadingProgressBarDialog loadingProgressBarDialog;
 
     //API code
     String baseURL = "https://api.unsplash.com";
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
         setContentView(R.layout.activity_main);
 
         recyclerView=findViewById(R.id.recyclerView);
+
+        loadingProgressBarDialog=new LoadingProgressBarDialog(this);
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
 
     private void getData() {
 
+        loadingProgressBarDialog.startProgressBarLoading();  //
+
         Call<ArrayList<ResponsePojo>> responseDetails=apiInterface.getResponseDetails("9qQ2b3hOLsdJ8MFtaHl-iGXB-6GzyC1E872EAXHDwQ4",1,60);
 
         responseDetails.enqueue(new Callback<ArrayList<ResponsePojo>>() {
@@ -73,8 +78,7 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
                 programAdapter = new MainActRCVAdapter(MainActivity.this,responsePojo,MainActivity.this);
                     recyclerView.setAdapter(programAdapter);
 
-
-
+                loadingProgressBarDialog.dismissProgressBarDialog();
             }
 
             @Override
