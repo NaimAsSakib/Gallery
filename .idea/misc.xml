@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/Gallery/app/src/main/res/drawable/button_shape.xml" value="0.1395" />
         <entry key="..\:/AndroidStudioProjects/Gallery/app/src/main/res/layout/activity_full_screen_image_view.xml" value="0.2421875" />
         <entry key="..\:/AndroidStudioProjects/Gallery/app/src/main/res/layout/activity_main.xml" value="0.2421875" />
         <entry key="..\:/AndroidStudioProjects/Gallery/app/src/main/res/layout/photo_rcv_item.xml" value="0.2421875" />
