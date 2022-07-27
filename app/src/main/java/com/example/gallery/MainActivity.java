@@ -27,10 +27,6 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
     RecyclerView.LayoutManager layoutManager;
     GridLayoutManager gridLayoutManager;
 
-    //ArrayList<Integer> arrayList;
-
-    ItemOnClickListener itemOnClickListener;
-    String imagePosition;
 
     //API code
     String baseURL = "https://api.unsplash.com";
@@ -43,21 +39,6 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
         setContentView(R.layout.activity_main);
 
         recyclerView=findViewById(R.id.recyclerView);
-
-/*
-        arrayList=new ArrayList<>();
-        arrayList.add(R.drawable.myphoto);
-        arrayList.add(R.drawable.myphoto);
-        arrayList.add(R.drawable.sakib);
-        arrayList.add(R.drawable.sakib);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        programAdapter = new MainActRCVAdapter(MainActivity.this,arrayList,MainActivity.this);
-        recyclerView.setAdapter(programAdapter);
-*/
-
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -89,9 +70,10 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
 
                 ArrayList<ResponsePojo> responsePojo=response.body();
 
-                    programAdapter = new MainActRCVAdapter(MainActivity.this,responsePojo,MainActivity.this);
+                programAdapter = new MainActRCVAdapter(MainActivity.this,responsePojo,MainActivity.this);
                     recyclerView.setAdapter(programAdapter);
-                    //Toast.makeText(MainActivity.this, "response successful for Main Act", Toast.LENGTH_SHORT).show();
+
+
 
             }
 
@@ -106,11 +88,10 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
 
     @Override
     public void onImageClicked(String imagePath) {
-        imagePosition=imagePath;
-        Log.e("PastedValue","image number  "+imagePosition);
+        Log.e("PastedValue","image number  "+imagePath);
 
         Intent fullImageIntent = new Intent(MainActivity.this, FullScreenImageViewActivity.class);
-        fullImageIntent.putExtra("imageNumber",imagePosition);
+        fullImageIntent.putExtra("imageNumber",imagePath);
         startActivity(fullImageIntent);
     }
 }

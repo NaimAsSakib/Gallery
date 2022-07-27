@@ -53,14 +53,6 @@ public class FullScreenImageViewActivity extends AppCompatActivity {
 
 
 
-     /*   Intent intent=getIntent();
-        String image=intent.getStringExtra("imageNumber");
-        Log.e("Image INT","Image INT "+image);
-
-        int imageID=Integer.parseInt(image);
-        Log.e("Image INT","Image INT "+imageID);
-        zoomableImageView.setImageResource(imageID);*/
-
         Intent intent = getIntent();
         String image = intent.getStringExtra("imageNumber");
         Log.e("Image INT", "Image INT " + image);
