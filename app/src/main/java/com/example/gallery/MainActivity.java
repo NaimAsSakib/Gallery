@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
         arrayList.add(R.drawable.myphoto);
         arrayList.add(R.drawable.sakib);
         arrayList.add(R.drawable.sakib);
-
-
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
@@ -93,13 +91,13 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
 
                     programAdapter = new MainActRCVAdapter(MainActivity.this,responsePojo,MainActivity.this);
                     recyclerView.setAdapter(programAdapter);
-                    Toast.makeText(MainActivity.this, "response successful for Main Act", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "response successful for Main Act", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onFailure(Call<ArrayList<ResponsePojo>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
             }
         });
 
