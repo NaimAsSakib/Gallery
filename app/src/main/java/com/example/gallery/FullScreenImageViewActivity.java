@@ -103,5 +103,40 @@ public class FullScreenImageViewActivity extends AppCompatActivity {
           }
       });
 
+        //for download
+        imgDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Calling download method
+                downloadImage("Gallery", image);
+            }
+        });
+
     }
+
+    //Method for downloading image
+    void downloadImage(String fileName, String imageURL) {
+        try {
+            DownloadManager downloadManager = null;
+            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri downloadUri = Uri.parse(imageURL);
+            DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                    DownloadManager.Request.NETWORK_MOBILE)
+                    .setAllowedOverRoaming(false)
+                    .setTitle(fileName)
+                    .setMimeType("image/jpeg")
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, File.separator + fileName + ".jpeg");
+
+            downloadManager.enqueue(request);
+
+            Toast.makeText(this, "Download completed", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Image download failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
