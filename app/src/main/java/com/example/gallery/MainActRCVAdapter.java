@@ -82,6 +82,7 @@ public class MainActRCVAdapter extends RecyclerView.Adapter<MainActRCVAdapter.Vi
             @Override
             public void onClick(View v) {
 
+                //Passing URL of image through listener interface
                 String clickedImage=item.getUrls().getRegular();
                 itemOnClickListener.onImageClicked(clickedImage);
             }
