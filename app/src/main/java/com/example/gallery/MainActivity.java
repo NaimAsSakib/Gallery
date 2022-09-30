@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
 
                 ArrayList<ResponsePojo> responsePojo = response.body();
 
-                //converting response into string & saving to shared preference
+                //converting response into string & saving that string to shared preference
                 Gson gson = new Gson();
                 String saveConvertedString = gson.toJson(response.body());
                 mySharedPref.putString("stringKey", saveConvertedString);
